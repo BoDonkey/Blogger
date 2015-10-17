@@ -7,14 +7,28 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p class="flash" id ="flasher"><%= flash.notice %></p>
-<%= yield %>
-<script type="text/javascript">
-$(document).ready(function(){
-	setTimeout(function(){
-		$('#flasher').remove();
-	}, 2000);
-})
-</script>
+	<p class="flash" id ="flasher"><%= flash.notice %></p>
+	<div id ="container">
+		<div id = "content">
+			<%= yield %>
+			<hr>
+			<h6>
+				<% if logged_in? %>
+				<%= "Logged in as #{current_user.email}" %>
+				<%= link_to "(logout)", logout_path %>
+				<% else %>
+				<%= link_to "(login)", login_path %>
+				<% end %>
+			</h6>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			setTimeout(function(){
+				$('#flasher').remove();
+			}, 2000);
+		})
+	</script>
 </body>
 </html>
